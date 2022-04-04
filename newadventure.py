@@ -652,9 +652,16 @@ class World:
 world = World()
 
 
+# New IO Wrapper using cmd lib
 class Game(cmd.Cmd):
+
+    # Setting repeated prompt
     prompt = '\n>>'
+
+    # Tell the player where they are at game start
     intro = world.look()
+
+    # COMMANDS
 
     def do_go(self, arg):
         """Move in a cardinal direction\nUsage: go <direction>\nDirections: [N, S, E, W, Up, Down]"""
@@ -704,8 +711,8 @@ class Game(cmd.Cmd):
         """Runs exit"""
         self.do_exit(arg)
 
-    def postcmd(self, stop: bool, line: str) -> bool:
-        world.look()
+    def default(self, line: str) -> bool:
+        print(f"What does '{line}' mean?")
         return False
 
 
